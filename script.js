@@ -14,7 +14,7 @@ startButton.innerHTML = "Start";
 h1El.textContent = "Welcome to the Coding Quiz";
 answers.textContent = "Answers";
 questionBox.textContent = qList[0].question;
-
+quizBox.appendChild(timerBox);
 quizBox.appendChild(h1El);
 
 body.appendChild(quizBox);
@@ -26,15 +26,30 @@ quizBox.appendChild(startButton)
 h1El.setAttribute("style", "margin:auto; width:50%; text-align:center;");
 answers.setAttribute("style", "font-size:25px; text-align:center;");
 
-let time = qList.length*15;
+let time = qList.length*2;
 let timer;
 
 
 const clockTick = () => {
+    time--;
+    timerBox.textContent=time;
+    if (time<=0) {
+        endQuiz();
+    }
+}
 
-}
 const startQuiz = () => {
-    timer = setInterval(countDown, 1000);
-    
+    timer = setInterval(clockTick, 1000);
+    timerBox.textContent=time;
+    console.log(qList)
+    startButton.setAttribute("class", "hide");
 }
+
+const endQuiz = () => {
+    clearInterval(timer);
+    startButton.removeAttribute("class")
+    time = qList.length*2
+}
+
 startButton.onclick=startQuiz;
+
