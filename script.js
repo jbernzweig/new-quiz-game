@@ -4,7 +4,8 @@ let quizBox = document.createElement("div");
 let timerBox = document.createElement("div");
 let questionIndex=0; 
 let currentAnswer, currentQuestion;
-
+let numRight = 0;
+let numWrong = 0;
 
 quizBox.setAttribute("id", "quizBox");
 questionBox = document.createElement("div");
@@ -48,16 +49,13 @@ const startQuiz = () => {
 
 }
 
-const checkAnswer = (e) => {
-    
-}
-
 const showChoices = (choices) => {
     let writeChoice
     choices.forEach((choice, index) => {
         let newDiv = document.createElement("div")
         const choiceButton = document.createElement("button");
         choiceButton.name = choice;
+        choiceButton.id = index;
         quizBox.appendChild(newDiv)
         quizBox.appendChild(choiceButton)
         choiceButton.innerHTML = choice;
@@ -65,10 +63,22 @@ const showChoices = (choices) => {
             console.log(choiceButton.name)
             console.log(currentQuestion)
             if (choiceButton.name===currentQuestion.answer) {
-                console.log('you got it!')
-            } console.log('wrong answer')
-        };
-    }) 
+                numRight++
+                console.log('numRight ', numRight)
+                questionIndex++ 
+                let buttonRemove = document.getElementById(index)
+                buttonRemove.remove()
+                getQuestions()
+            return 
+            } 
+            numWrong++
+            console.log('numWrong', numWrong)
+            questionIndex++
+            let buttonRemove = document.getElementById(index)
+            buttonRemove.remove()
+            getQuestions()
+        };     
+    })
 }
 
 const getQuestions = () => {
