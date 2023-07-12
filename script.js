@@ -48,12 +48,26 @@ const startQuiz = () => {
 
 }
 
+const checkAnswer = (e) => {
+    
+}
+
 const showChoices = (choices) => {
     let writeChoice
     choices.forEach((choice, index) => {
         let newDiv = document.createElement("div")
+        const choiceButton = document.createElement("button");
+        choiceButton.name = choice;
         quizBox.appendChild(newDiv)
-        newDiv.textContent = choice
+        quizBox.appendChild(choiceButton)
+        choiceButton.innerHTML = choice;
+        choiceButton.onclick= () => {
+            console.log(choiceButton.name)
+            console.log(currentQuestion)
+            if (choiceButton.name===currentQuestion.answer) {
+                console.log('you got it!')
+            } console.log('wrong answer')
+        };
     }) 
 }
 
@@ -61,6 +75,7 @@ const getQuestions = () => {
     currentQuestion=qList[questionIndex]
     questionBox.textContent = currentQuestion.question;
     answerBox.textContent = showChoices(currentQuestion.choices)
+    
 }
 
 const showAnswer = () => {
